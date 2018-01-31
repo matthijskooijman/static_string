@@ -135,7 +135,7 @@ class string<N, char_array>
     }
    
     template <int... Il, typename T>
-    constexpr explicit string(private_ctor, T const& l, detail::int_sequence<Il...>)
+    constexpr explicit string(private_ctor, string<N, T> const& l, detail::int_sequence<Il...>)
       : _array{l[Il]..., 0}
     {
     }
@@ -148,11 +148,6 @@ public:
     }
 
     constexpr string(string_literal<N> l) // converting
-    : string(private_ctor{}, l, detail::make_int_sequence<N>{})
-    {
-    }
-
-    constexpr string(const char *l) // converting
     : string(private_ctor{}, l, detail::make_int_sequence<N>{})
     {
     }
